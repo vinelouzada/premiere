@@ -1,0 +1,35 @@
+.container-form{
+    max-width: 1100px;
+    margin: 20px auto 0;
+}
+.form-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.criar-evento{
+    display: flex;
+    flex-direction: column;
+}
+.criar-evento h2{
+    font-size: 20px;
+    color: #0097FF;
+}
+
+.form-input label{
+    font-size: 12px;
+}
+
+.form-input input, select {
+    padding: 5px 16px;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #dfe0df;
+    height: 20px;
+    margin: 5px 0 15px;
+}
+
+.form-input select{
+    height: 32px;
+}
+
