@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Evento;
 
 use App\Repository\EventoPresencialRepository;
-use Doctrine\Common\Annotations\Annotation\Enum;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EventoPresencialRepository::class)]
@@ -38,16 +37,16 @@ class EventoPresencial
      * @param string $descricao
      * @param \DateTime $dataEHoraInicio
      * @param \DateTime $dataEHoraFim
-     * @param Enum $tipoIngresso
-     * @param Enum $visibilidade
+     * @param string $tipoIngresso
+     * @param string $visibilidade
      */
     public function __construct(string    $nome,
                                 string    $imagemDeDivulgacao,
                                 string    $descricao,
                                 \DateTime $dataEHoraInicio,
                                 \DateTime $dataEHoraFim,
-                                Enum      $tipoIngresso,
-                                Enum      $visibilidade)
+                                string      $tipoIngresso,
+                                string      $visibilidade)
     {
         $this->nome = $nome;
         $this->imagemDeDivulgacao = $imagemDeDivulgacao;
@@ -108,27 +107,27 @@ class EventoPresencial
         $this->dataEHoraFim = $dataEHoraFim;
     }
 
-    public function getTipoIngresso(): Enum
+    public function getTipoIngresso(): string
     {
         return $this->tipoIngresso;
     }
 
-    public function setTipoIngresso(Enum $tipoIngresso): void
+    public function setTipoIngresso(string $tipoIngresso): void
     {
         $this->tipoIngresso = $tipoIngresso;
     }
 
-    public function getVisibilidade(): Enum
+    public function getVisibilidade(): string
     {
         return $this->visibilidade;
     }
 
-    public function setVisibilidade(Enum $visibilidade): void
+    public function setVisibilidade(string $visibilidade): void
     {
         $this->visibilidade = $visibilidade;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

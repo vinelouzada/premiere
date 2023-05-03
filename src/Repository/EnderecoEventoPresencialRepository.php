@@ -2,28 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Evento\EventoPresencial;
+use App\Entity\Evento\EnderecoEventoPresencial;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EventoPresencial>
+ * @extends ServiceEntityRepository<EnderecoEventoPresencial>
  *
- * @method EventoPresencial|null find($id, $lockMode = null, $lockVersion = null)
- * @method EventoPresencial|null findOneBy(array $criteria, array $orderBy = null)
- * @method EventoPresencial[]    findAll()
- * @method EventoPresencial[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EnderecoEventoPresencial|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EnderecoEventoPresencial|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EnderecoEventoPresencial[]    findAll()
+ * @method EnderecoEventoPresencial[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-
-#https://www.sympla.com.br/validar?token=442714b33941cef7a619332c907eed09&email=cejor42012%40syinxun.com&t=1
-class EventoPresencialRepository extends ServiceEntityRepository
+class EnderecoEventoPresencialRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EventoPresencial::class);
+        parent::__construct($registry, EnderecoEventoPresencial::class);
     }
 
-    public function save(EventoPresencial $entity, bool $flush = false): void
+    public function save(EnderecoEventoPresencial $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -32,7 +30,7 @@ class EventoPresencialRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(EventoPresencial $entity, bool $flush = false): void
+    public function remove(EnderecoEventoPresencial $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -42,7 +40,7 @@ class EventoPresencialRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return EventoPresencial[] Returns an array of EventoPresencial objects
+//     * @return EnderecoEventoPresencial[] Returns an array of EnderecoEventoPresencial objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -56,7 +54,7 @@ class EventoPresencialRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?EventoPresencial
+//    public function findOneBySomeField($value): ?EnderecoEventoPresencial
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')

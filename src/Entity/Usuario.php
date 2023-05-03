@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UsuarioRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsuarioRepository::class)]
 class Usuario
@@ -13,14 +14,21 @@ class Usuario
     #[ORM\Column]
     private int $id;
     #[ORM\Column]
+    #[Assert\Length(min: 5)]
     private string $nomeCompleto;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private string $email;
+
     #[ORM\Column]
+    #[Assert\NotBlank]
     private string $senha;
 
-    public function __construct(string $nomeCompleto, string $email, string $senha)
+    public function __construct(
+        string $nomeCompleto,
+        string $email,
+        string $senha)
     {
         $this->nomeCompleto = $nomeCompleto;
         $this->email = $email;

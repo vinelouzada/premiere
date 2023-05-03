@@ -3,8 +3,14 @@
 namespace App\Controller\Usuario;
 
 use App\Entity\Usuario;
+use App\Form\UsuarioType;
 use App\Repository\UsuarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,23 +28,27 @@ class CriarUsuarioController extends AbstractController
     #[Route('/criar-usuario', name: 'app_criar_usuario', methods: ['GET'])]
     public function index(): Response
     {
-        return $this->render('criar_usuario/index.html.twig', [
-            'controller_name' => 'CriarUsuarioController',
-        ]);
+        $formulario = $this->createForm(
+            UsuarioType::class,
+            new Usuario('','','')
+        );
+
+        return $this->renderForm('criar_usuario/index.html.twig', compact("formulario"));
     }
 
     #[Route("/criar-usuario", methods: ['POST'])]
     public function criarUsuario(Request $request):Response
     {
-        $nome = $request->request->get('nome');
-        $sobrenome = $request->request->get('sobrenome');
-        $nomeCompleto = "$nome $sobrenome";
-        $email = $request->request->get('email');
-        $senha = $request->request->get('senha');
+        $formulario = $this->createForm(
+            UsuarioType::class,
+            new Usuario('', '', '')
+        )->handleRequest($request);
 
-        $usuario = new Usuario($nomeCompleto,$email,$senha);
+        if (!$formulario->isValid()){
+            return $this->renderForm('criar_usuario/index.html.twig', compact("formulario"));
+        }
 
-        $this->usuarioRepository->save($usuario,true);
+        $this->usuarioRepository->save($formulario->getData(),true);
 
         return new RedirectResponse("/criar-evento");
     }
