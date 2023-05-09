@@ -2,6 +2,8 @@
 
 namespace App\Entity\Evento;
 
+use App\Enum\TipoIngresso;
+use App\Enum\Visibilidade;
 use App\Repository\EventoPresencialRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,10 @@ class EventoPresencial
     #[ORM\Column(options: ["default" => "Público", "columnDefinition" => "ENUM('Público','Privado')"])]
     private string $visibilidade;
 
+    #[ORM\OneToOne(targetEntity: EnderecoEventoPresencial::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: "endereco_id", referencedColumnName: "id", nullable: false)]
+    private EnderecoEventoPresencial $endereco;
+
     /**
      * @param string $nome
      * @param string $imagemDeDivulgacao
@@ -46,7 +52,9 @@ class EventoPresencial
                                 \DateTime $dataEHoraInicio,
                                 \DateTime $dataEHoraFim,
                                 string      $tipoIngresso,
-                                string      $visibilidade)
+                                string      $visibilidade,
+                                EnderecoEventoPresencial $endereco
+    )
     {
         $this->nome = $nome;
         $this->imagemDeDivulgacao = $imagemDeDivulgacao;
@@ -55,8 +63,18 @@ class EventoPresencial
         $this->dataEHoraFim = $dataEHoraFim;
         $this->tipoIngresso = $tipoIngresso;
         $this->visibilidade = $visibilidade;
+        $this->endereco = $endereco;
     }
 
+    public function adicionarEndereco(EnderecoEventoPresencial $endereco)
+    {
+        $this->endereco = $endereco;
+    }
+
+    public function getEndereco()
+    {
+        return $this->endereco;
+    }
     public function getNome(): string
     {
         return $this->nome;
